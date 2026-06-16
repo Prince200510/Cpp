@@ -13,37 +13,36 @@ struct Node {
     }
 };
 
-Node* insert(vector<int>& arr, int left, int right) {
-    if(left > right) {
+Node* build_tree(vector<int>& arr, int i) {
+    if(i >= arr.size() || arr[i] == -1) {
         return NULL;
     }
 
-    int mid = left + (right - left) / 2;
-    Node* root = new Node(arr[mid]);
-
-    root->left = insert(arr, left, mid - 1);
-    root->right = insert(arr, mid + 1, right);
+    Node* root = new Node(arr[i]);
+    root->left = build_tree(arr, 2 * i + 1);
+    root->right = build_tree(arr, 2 * i + 2);
 
     return root;
 }
 
-void display(Node* root) {
+int level(Node* root) {
     if(root == NULL) {
-        return;
+        return 0;
     }
 
+    int max_level = 0;
     queue<Node*> q;
     q.push(root);
 
     while(!q.empty()) {
         int size = q.size();
 
+        max_level = max(max_level, size);
+
         while(size--) {
             Node* current = q.front();
             q.pop();
 
-            cout << current->data << " ";
-            
             if(current->left) {
                 q.push(current->left);
             }
@@ -52,8 +51,8 @@ void display(Node* root) {
                 q.push(current->right);
             }
         }
-        cout << endl;
     }
+    return max_level;
 }
 
 int main() {
@@ -63,8 +62,8 @@ int main() {
     vector<int> arr(n);
     for(int i = 0; i < n; i++) {
         cin >> arr[i];
-    }
+    }   
 
-    Node* root = insert(arr, 0, n - 1);
-    display(root);
+    Node* root = build_tree(arr, 0);
+    cout << "Maximum nodes at any level: " << level(root) << endl;
 }
