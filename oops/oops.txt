@@ -1,0 +1,13 @@
+Advanced OOP Roadmap
+1. Encapsulation
+2. Inheritance
+3. Polymorphism
+4. Virtual Functions
+5. Abstract Classes
+6. Interfaces
+7. Friend Functions
+8. Operator Overloading
+9. Static Members
+10. Multiple Inheritance
+11. Diamond Problem
+12. Runtime Polymorphism Internals (vtable/vptr)
